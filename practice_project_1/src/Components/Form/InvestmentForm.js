@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import styles from './InvestmentForm.module.css'
 
 const InvestmentForm = ({ resetHandler, calculateHandler }) => {
     const { register, handleSubmit, reset, formState, formState: { isSubmitSuccessful } } = useForm();
@@ -9,10 +10,10 @@ const InvestmentForm = ({ resetHandler, calculateHandler }) => {
         }
     }, [formState, reset])
     return (
-        <form className="form" onSubmit={handleSubmit((data) => {
+        <form className={styles.form} onSubmit={handleSubmit((data) => {
             calculateHandler(data)
         })}>
-            <div className="input-group">
+            <div className={styles['input-group']}>
                 <p>
                     <label htmlFor="current-savings">Current Savings ($)</label>
                     <input type="number" id="current-savings" {...register('current-savings')} />
@@ -22,7 +23,7 @@ const InvestmentForm = ({ resetHandler, calculateHandler }) => {
                     <input type="number" id="yearly-contribution" {...register('yearly-contribution')} />
                 </p>
             </div>
-            <div className="input-group">
+            <div className={styles['input-group']}>
                 <p>
                     <label htmlFor="expected-return">
                         Expected Interest (%, per year)
@@ -34,11 +35,11 @@ const InvestmentForm = ({ resetHandler, calculateHandler }) => {
                     <input type="number" id="duration" {...register('duration')} />
                 </p>
             </div>
-            <p className="actions">
-                <button type="reset" className="buttonAlt" onClick={resetHandler}>
+            <p className={styles.actions}>
+                <button type="reset" className={styles.buttonAlt} onClick={resetHandler}>
                     Reset
                 </button>
-                <button type="submit" className="button">
+                <button type="submit" className={styles.button}>
                     Calculate
                 </button>
             </p>
