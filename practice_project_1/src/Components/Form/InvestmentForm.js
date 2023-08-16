@@ -2,16 +2,17 @@ import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import styles from './InvestmentForm.module.css'
 
-const InvestmentForm = ({ resetHandler, calculateHandler }) => {
+const InvestmentForm = ({ onReset, onSubmit }) => {
     const { register, handleSubmit, reset, formState, formState: { isSubmitSuccessful } } = useForm();
     useEffect(() => {
         if (formState.isSubmitSuccessful) {
             reset()
         }
     }, [formState, reset])
+
     return (
         <form className={styles.form} onSubmit={handleSubmit((data) => {
-            calculateHandler(data)
+            onSubmit(data)
         })}>
             <div className={styles['input-group']}>
                 <p>
@@ -36,7 +37,7 @@ const InvestmentForm = ({ resetHandler, calculateHandler }) => {
                 </p>
             </div>
             <p className={styles.actions}>
-                <button type="reset" className={styles.buttonAlt} onClick={resetHandler}>
+                <button type="reset" className={styles.buttonAlt} onClick={onReset}>
                     Reset
                 </button>
                 <button type="submit" className={styles.button}>

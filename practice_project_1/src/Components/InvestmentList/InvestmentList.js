@@ -1,8 +1,7 @@
 import React from 'react'
 import styles from './InvestmentList.module.css'
 
-const InvestmentList = ({ investmentList }) => {
-
+const InvestmentList = ({ investmentItems }) => {
     return (
         <table className={styles.result}>
             <thead>
@@ -16,11 +15,11 @@ const InvestmentList = ({ investmentList }) => {
             </thead>
             <tbody>
                 {
-                    investmentList.length === 0 ? <tr><td className={styles['no-input']} colSpan={5} style={{ textAlign: 'center' }}>Please input your data</td></tr> : (
-                        investmentList.map((item, index, list) => {
+                    investmentItems.length === 0 ? <tr><td className={styles['no-input']} colSpan={5} style={{ textAlign: 'center' }}>Please input your data</td></tr> : (
+                        investmentItems.map((item) => {
                             return (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
+                                <tr key={item.year}>
+                                    <td>{item.year}</td>
                                     <td>$ {item.savingsEndOfYear}</td>
                                     <td>$ {item.yearlyInterest}</td>
                                     <td>$ {item.yearlyTotalInterest}</td>

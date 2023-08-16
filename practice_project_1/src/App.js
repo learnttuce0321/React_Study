@@ -4,7 +4,7 @@ import InvestmentList from './Components/InvestmentList/InvestmentList';
 import InvestmentForm from './Components/Form/InvestmentForm';
 
 function App() {
-  const [investmentList, setInvestmentList] = useState([])
+  const [investmentItems, setInvestmentItems] = useState([])
 
   const calculateHandler = (userInput) => {
     const yearlyData = []
@@ -12,19 +12,18 @@ function App() {
     let yearlyTotalInterest = 0
     let investedCapital = +userInput['current-savings'];
 
-    let currentSavings = +userInput['current-savings']; // feel free to change the shape of this input object!
-    const yearlyContribution = +userInput['yearly-contribution']; // as mentioned: feel free to change the shape...
+    let currentSavings = +userInput['current-savings'];
+    const yearlyContribution = +userInput['yearly-contribution'];
     const expectedReturn = +userInput['expected-return'] / 100;
     const duration = +userInput['duration'];
 
-    // The below code calculates yearly results (total savings, interest etc)
     for (let i = 0; i < duration; i++) {
       const yearlyInterest = currentSavings * expectedReturn;
       yearlyTotalInterest += yearlyInterest;
       investedCapital += yearlyContribution
       currentSavings += yearlyInterest + yearlyContribution;
+
       yearlyData.push({
-        // feel free to change the shape of the data pushed to the array!
         year: i + 1,
         yearlyInterest: yearlyInterest.toFixed(2),
         yearlyTotalInterest: yearlyTotalInterest.toFixed(2),
@@ -34,24 +33,26 @@ function App() {
       });
     }
 
-    setInvestmentList(yearlyData)
-    // do something with yearlyData ...
+    return yearlyData
   };
 
+  const onSubmit = (userInput) => {
+    const yearlyData = calculateHandler(userInput)
+    setInvestmentItems(yearlyData)
+
+  }
+
   const resetHandler = () => {
-    setInvestmentList([])
+    setInvestmentItems([])
   }
 
   return (
     <div>
       <Header />
 
-      <InvestmentForm resetHandler={resetHandler} calculateHandler={calculateHandler} />
+      <InvestmentForm onReset={resetHandler} onSubmit={onSubmit} />
 
-      {/* Todo: Show below table conditionally (only once result data is available) */}
-      {/* Show fallback text if no data is available */}
-
-      <InvestmentList investmentList={investmentList} />
+      <InvestmentList investmentItems={investmentItems} />
     </div >
   );
 }
