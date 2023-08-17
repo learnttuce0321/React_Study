@@ -42,7 +42,7 @@ function App() {
       <List userList={userList} />
 
       {
-        error && <Modal setError={setError} />
+        error && <Modal error={error} setError={setError} />
       }
 
     </>

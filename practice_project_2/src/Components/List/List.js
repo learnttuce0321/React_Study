@@ -1,9 +1,10 @@
 import React from "react";
 import Card from "../Card/Card";
+import classes from './List.module.css'
 
 const List = ({ userList }) => {
     return (
-        <Card className='list'>
+        <Card className={classes.list}>
             {
                 userList.map((item, index) => {
                     return (
