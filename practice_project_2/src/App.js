@@ -3,6 +3,7 @@ import './index.css'
 import RegisterForm from './Components/RegisterForm/RegisterForm'
 import List from './Components/List/List'
 import Modal from './Components/Modal/Modal'
+import ReactDom from 'react-dom'
 
 
 function App() {
@@ -44,7 +45,6 @@ function App() {
       {
         error && <Modal error={error} setError={setError} />
       }
-
     </>
   );
 }

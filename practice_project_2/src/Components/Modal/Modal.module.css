@@ -13,6 +13,10 @@
     margin: 30vh auto;
     border: none;
     border-radius: 1rem;
+    position: fixed;
+    top: 0;
+    left: 30vw;
+    z-index: 12
 }
 
 .modalTitle {
