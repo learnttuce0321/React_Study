@@ -5,14 +5,14 @@ import Button from '../Button/Button';
 import classes from './RegisterForm.module.css'
 
 const RegisterForm = ({ onSubmit }) => {
-    const { register, handleSubmit, reset, formState, formState: { isSubmitSuccessful } } = useForm();
+    const { register, handleSubmit, reset, formState: { isSubmitSuccessful } } = useForm();
 
 
     useEffect(() => {
-        if (formState.isSubmitSuccessful) {
+        if (isSubmitSuccessful) {
             reset()
         }
-    }, [formState, reset])
+    }, [isSubmitSuccessful, reset])
 
     return (
         <Card className={classes.registerForm}>
