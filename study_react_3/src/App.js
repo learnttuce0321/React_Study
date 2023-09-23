@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
+  import './App.css';
 import { useReducer } from 'react'
 
 function reducer(state, action) {
@@ -18,10 +17,11 @@ function App() {
   }
   return (
     <>
-      <h1>{state.name}</h1>
+      <h1>{state.name}</h1> 
       <h1>{state.age}</h1>
       <button onClick={clickHandler}>Increase Age</button>
     </>
+
   );
 }
 
