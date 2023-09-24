@@ -42,15 +42,15 @@ function App() {
       <InputHeader todoId={todoId} todoStatus={todoStatus} setTodoState={setTodoState} />
       <div style={{display: 'flex', justifyContent:'space-evenly', padding: '2rem', width: '100vw'}}> 
 
-        <TodoLine statusName={'todo'} status={todo} clickHandler={clickHandler} />
+        <TodoLine statusName={'todo'} status={todo} clickHandler={clickHandler} todoId={todoId} />
         
         <ChangeStatusButton plusStatusHandler={clickToInProgressHandler} plusState={'inProgress'} minusStatusHandler={clickToTodoHandler} minusState={'todo'} todoStatus={todoStatus} />
 
-        <TodoLine statusName={'inProgress'} status={inProgress} clickHandler={clickHandler} />
+        <TodoLine statusName={'inProgress'} status={inProgress} clickHandler={clickHandler} todoId={todoId} />
 
         <ChangeStatusButton plusStatusHandler={clickToCompletedHandler} plusState={'completed'} minusStatusHandler={clickToInProgressHandler} minusState={'inProgress'} todoStatus={todoStatus} />
 
-        <TodoLine statusName={'completed'} status={completed} clickHandler={clickHandler} />
+        <TodoLine statusName={'completed'} status={completed} clickHandler={clickHandler} todoId={todoId} />
 
       </div>
       

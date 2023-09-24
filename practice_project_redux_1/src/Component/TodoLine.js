@@ -1,7 +1,7 @@
 import TodoItem from "./TodoItem"
 import classes from '../CSS/TodoLine.module.css'
 
-export default function TodoLine({statusName, status, clickHandler}) {
+export default function TodoLine({statusName, status, clickHandler, todoId}) {
     return (
         <div>
             <h1 className={classes['todoLine-name']}>{statusName}</h1>
@@ -10,7 +10,7 @@ export default function TodoLine({statusName, status, clickHandler}) {
                 {
                     status.map((item) => {
                     return (
-                        <TodoItem item={item} key={item.id} clickHandler={clickHandler}/>
+                        <TodoItem key={item.id} item={item} todoId={todoId} clickHandler={clickHandler}/>
                     )
                     })
                 }
