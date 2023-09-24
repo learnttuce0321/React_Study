@@ -1,0 +1,19 @@
+.header-container {
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1.5rem;
+}
+.header-container input {
+    width: 50%;
+    height: 3rem;
+    margin-right: 1rem;
+    border: 2px solid rgb(229, 239, 249);
+    border-radius: 10px;
+}
+.header-container button {
+    margin: 1rem;
+    height: 3rem;   
+}

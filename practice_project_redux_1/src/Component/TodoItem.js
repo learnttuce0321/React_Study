@@ -1,9 +1,10 @@
+import classes from '../CSS/TodoItem.module.css'
 export default function TodoItem({item, clickHandler}) {
   
   return (
-    <div style={{width: '100%', margin: '15px'}} onClick={() => {clickHandler(item.progress, item.id)}}>
-        <h3 style={{width: '100%'}}>{item.title}</h3>
-        <p style={{width: '100%'}}>{item.progress}</p>
+    <div className={classes['todoItem-container']}onClick={() => {clickHandler(item.progress, item.id)}}>
+        <h3>{item.title}</h3>
+        <p>{item.progress}</p>
     </div>
   )
 }
