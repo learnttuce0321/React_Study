@@ -5,14 +5,41 @@ const todoInitialState = {
     inProgress: [],
     completed: []
 }
+
 const todoSlice = createSlice({
     name: 'todo',
     initialState: todoInitialState,
     reducers: {
+        storeTodo (state, action) {
+            const {todos} = action.payload
+
+            todos.forEach((todo) => {        
+                if(todo.progress === 'todo') {            
+                    state.todo.push({
+                        id: todo.id,
+                        title: todo.name,
+                        progress: 'todo'
+                    })
+                } else if(todo.progress === 'inProgress') {            
+                    state.inProgress.push({
+                        id: todo.id,
+                        title: todo.name,
+                        progress: 'inProgress'
+                    })
+                } else {            
+                    state.completed.push({
+                        id: todo.id,
+                        title: todo.name,
+                        progress: 'completed'
+                    })
+                }
+            })
+        },
         addTodo(state, action) {
+            const {id, title} = action.payload
             state.todo.push({
-                id: Date.now(),
-                title: action.payload.title,
+                id: id,
+                title: title,
                 progress: 'todo',
             })
         },
@@ -28,15 +55,19 @@ const todoSlice = createSlice({
             const { status, id } = action.payload
             
             if(status === 'todo') {
+
                 const matchedIndex = state.todo.findIndex(item => item.id === id)
                 const matchedItem = state.todo.splice(matchedIndex, 1)[0]
                 matchedItem.progress = 'inProgress'
                 state.inProgress.push(matchedItem)
+
             } else if(status === 'completed') {
+
                 const matchedIndex = state.completed.findIndex(item => item.id === id)
                 const matchedItem = state.completed.splice(matchedIndex, 1)[0]
                 matchedItem.progress = 'inProgress'
                 state.inProgress.push(matchedItem)
+
             }
         },
         changeToCompleted(state, action) {
@@ -65,10 +96,11 @@ const todoSlice = createSlice({
                 case 'completed':
                     deleteTodo(state.completed, id)
                     break
+                default:
             }
         }
     }
 })
 
-export const { addTodo, changeToTodo, changeToInProgress, changeToCompleted, deleteItem } = todoSlice.actions
+export const { storeTodo, addTodo, changeToTodo, changeToInProgress, changeToCompleted, deleteItem } = todoSlice.actions
 export default todoSlice

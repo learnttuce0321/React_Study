@@ -1,0 +1,21 @@
+.headerButton {
+    border: 2px solid #bbdcea;
+    border-radius: 50px;
+    padding: 13px;
+    background-color: #e4f3f9;
+    font-weight: 600;
+    cursor: pointer;
+}
+.headerButton:hover {
+    background-color: #d9ebf2;
+}
+.progressButton {
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #e4f3f9;
+    cursor: pointer;
+}
+.progressButton:hover {
+    background-color: #d9ebf2;
+}

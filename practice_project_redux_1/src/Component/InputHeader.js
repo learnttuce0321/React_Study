@@ -1,40 +1,61 @@
-import { useRef } from "react"
+import { useRef} from "react"
 import { addTodo, deleteItem } from "../store/todo"
-import { useDispatch } from "react-redux"
+import { setTodoState } from "../store/clickedItem"
+import { useDispatch, useSelector } from "react-redux"
 import classes from '../CSS/InputHeader.module.css'
+import btnClasses from '../CSS/Button.module.css'
+import axios from "axios"
 
-
-export default function InputHeader({todoId, todoStatus, setTodoState}) {
+export default function InputHeader() {
     const todoInputRef = useRef()
     const dispatch = useDispatch()
+    const { todoId, todoStatus } = useSelector(state => state.clickedItem)
+    const visibilityStatus = todoId ? {visibility: 'visible'} : {visibility: 'hidden'}
      
-    const addTodoHandler = () => {
+    const addTodoHandler = async () => {
         const todoInput = todoInputRef.current
 
         if(todoInput.value.length === 0) {
             todoInput.focus();
             return;
         }
-            
-        dispatch(addTodo({title: todoInput.value}))
+
+        const res = await axios({
+            method: 'POST',
+            url: '/register-todo',
+            data: {
+                name: todoInput.value
+            }
+        })
+        const {id, name} = res.data.todo
+        dispatch(addTodo({id: id, title: name}))
+        dispatch(setTodoState({todoId: 0, todoStatus: ''}))
         todoInput.value = ''
-        setTodoState('', 0)
     }
 
-    const deleteTodoHandler = () => {
-        dispatch(deleteItem({status: todoStatus, id: todoId}))
-        setTodoState('', 0)
+    const deleteTodoHandler = async () => {
+        try {
+            await axios({
+                method: 'DELETE',
+                url: `/todo/${todoId}`
+            })
+            dispatch(deleteItem({status: todoStatus, id: todoId}))
+            dispatch(setTodoState({todoId: 0, todoStatus: ''}))
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     const cancelHandler = () => {
-        setTodoState('', 0)
+        dispatch(setTodoState({todoId: 0, todoStatus: ''}))
     }
+    
     return (
         <header className={classes['header-container']}>
             <input type='text' ref={todoInputRef}/>
-            <button onClick={addTodoHandler}>추가하기</button>
-            <button onClick={deleteTodoHandler} style={{visibility: todoId ? 'visible' : 'hidden'}}>삭제하기</button>
-            <button onClick={cancelHandler} style={{visibility: todoId ? 'visible' : 'hidden'}}>취소</button>
+            <button onClick={addTodoHandler} className={btnClasses.headerButton}>추가하기</button>
+            <button onClick={deleteTodoHandler} style={visibilityStatus} className={btnClasses.headerButton}>삭제하기</button>
+            <button onClick={cancelHandler} style={visibilityStatus} className={btnClasses.headerButton}>취소</button>
         </header>
     )
 }

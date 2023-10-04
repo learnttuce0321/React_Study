@@ -7,13 +7,18 @@
     padding-top: 1.5rem;
 }
 .header-container input {
-    width: 50%;
+    border: 2px solid #e5eff9;
+    border-radius: 30px;
     height: 3rem;
     margin-right: 1rem;
-    border: 2px solid rgb(229, 239, 249);
-    border-radius: 10px;
+    width: 50%;
+    padding: 20px;
+    font-size: 16px;
+}
+.header-container input:focus {
+    border: 2px solid #d5e7f9
 }
 .header-container button {
-    margin: 1rem;
+    margin: 0.7rem;
     height: 3rem;   
 }

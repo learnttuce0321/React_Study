@@ -1,9 +1,18 @@
 import classes from '../CSS/TodoItem.module.css'
-export default function TodoItem({item, todoId, clickHandler}) {
-  
+import { setTodoState } from '../store/clickedItem'
+import { useSelector, useDispatch } from 'react-redux'
+
+export default function TodoItem({ item }) {
+  const dispatch = useDispatch()
+  const todoId = useSelector(state => state.clickedItem.todoId)
+
   return (
-    <div className={` ${classes['todoItem-container']} ${todoId === item.id ? classes['todoItem-container-click'] : null}`} onClick={() => {clickHandler(item.progress, item.id)}}>
-        <h3>{item.title}</h3>
+    <div className={` ${classes['todoItem-container']} ${todoId === item.id ? classes['todoItem-container-click'] : null}`} onClick={() => {
+      dispatch(setTodoState({
+      todoId: item.id,
+      todoStatus: item.progress
+    }))}}>
+        <h3 id={item.id}>{item.title}</h3>
         <p>{item.progress}</p>
     </div>
   )
